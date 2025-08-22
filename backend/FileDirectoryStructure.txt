@@ -1,0 +1,24 @@
+
+
+
+structure
+
+
+PraveshCampusPlacement_IITP/
+│── backend/
+│   ├── config/        # DB connection (MySQL)
+│   ├── models/        # Sequelize/Prisma models (Student, Recruiter, Job, Application, RoundResult)
+│   ├── routes/        # Express routes (auth, jobs, applications, rounds)
+│   ├── controllers/   # Business logic
+│   ├── middleware/    # Auth, role-based access
+│   ├── server.js
+│
+│── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/     # Login, Dashboard (Student/Recruiter/Officer)
+│   │   ├── api/       # Axios calls
+│   │   ├── App.js
+│   │   ├── index.js
+│
+│── package.json

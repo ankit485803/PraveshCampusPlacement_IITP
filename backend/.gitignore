@@ -1,0 +1,10 @@
+
+
+# this is very crediatial file env file user id and password
+
+.env
+
+
+# node package no need to push on github
+
+node_modules

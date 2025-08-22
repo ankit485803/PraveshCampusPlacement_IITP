@@ -1,0 +1,8 @@
+
+
+
+Auth (JWT-based)
+
+Students, Recruiters, Officers can register/login.
+Store role in DB (student | recruiter | officer).
+
