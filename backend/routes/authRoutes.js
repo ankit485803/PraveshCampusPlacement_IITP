@@ -4,12 +4,24 @@ const jwt = require("jsonwebtoken");
 const db = require("../config/db");
 
 const router = express.Router();
+//show all req user
+const printAllExistingUsers = require("./printAllExistingUsers");
+
+
+
 
 
 
 // REGISTER
 router.post("/register", (req, res) => {
-  const { name, email, password, role } = req.body;
+  const {
+    name,
+    email,
+    password,
+    role,
+    emails = [],     // optional extra emails
+    phones = []      // optional phone numbers
+  } = req.body;
 
   if (!name || !email || !password || !role) {
     return res.status(400).json({ message: "All fields are required" });
@@ -17,6 +29,7 @@ router.post("/register", (req, res) => {
 
   const hashedPassword = bcrypt.hashSync(password, 8);
 
+  // Step 1: Insert user into users table
   db.query(
     "INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)",
     [name, email, hashedPassword, role],
@@ -27,10 +40,57 @@ router.post("/register", (req, res) => {
         }
         return res.status(500).json({ error: err });
       }
-      res.json({ message: "✅ User registered successfully!" });
+
+      const userId = result.insertId;
+
+      // Step 2: Insert extra emails (if any)
+      if (emails.length > 0) {
+        const emailValues = emails.map(email => [userId, email, false]);
+        db.query(
+          "INSERT INTO user_emails (user_id, email, is_primary) VALUES ?",
+          [emailValues],
+          (err) => {
+            if (err) {
+              console.error("❌ Error inserting extra emails:", err.message);
+            }
+          }
+        );
+      }
+
+      // Step 3: Insert phone numbers (if any)
+      if (phones.length > 0) {
+        const phoneValues = phones.map(phone => [
+          userId,
+          phone.number,
+          phone.type || "personal"
+        ]);
+        db.query(
+          "INSERT INTO user_phones (user_id, phone, type) VALUES ?",
+          [phoneValues],
+          (err) => {
+            if (err) {
+              console.error("❌ Error inserting phone numbers:", err.message);
+            }
+          }
+        );
+      }
+
+      // Final response and Return the newly created user (without password)
+      const newUser = {
+        id: userId,
+        name,
+        email,
+        role
+      };
+
+      res.status(201).json({
+        message: "✅ User registered successfully!",
+        user: newUser
+      });
     }
   );
 });
+
 
 
 
@@ -71,17 +131,8 @@ router.post("/login", (req, res) => {
 
 
 
-// Get all users (testing purpose)
-router.get("/users", (req, res) => {
-  const sql = "SELECT id, name, email, role, created_at FROM users";
-  db.query(sql, (err, result) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ error: "Database error" });
-    }
-    res.json(result);
-  });
-});
+// Show all registered users with optional contact info
+router.get("/users", printAllExistingUsers);
 
 
 

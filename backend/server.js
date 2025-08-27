@@ -22,6 +22,13 @@ app.use("/api/auth", authRoutes); // all auth routes prefixed with /api/auth
 
 
 
+const jobRoutes = require("./routes/jobRoutes");
+app.use("/api/jobs", jobRoutes); // all /api/jobs routes now available
+
+
+
+
+
 // Sample route
 app.get("/", (req, res) => {
   res.send("🚀 Backend running successfully!");

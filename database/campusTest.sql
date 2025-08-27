@@ -83,3 +83,55 @@ CREATE TABLE `users` (
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2025-08-22 19:30:17
+
+
+
+/* 27th Aug (Wednesday-HappyGaneshChathi) to test printAllExistingUser
+
+
+*/
+USE campus_placement;
+
+SELECT * FROM users;
+-- Extra emails
+SELECT * FROM user_emails;
+-- Extra phones
+SELECT * FROM user_phones;
+
+-- See users with their extra emails
+SELECT u.name, u.email AS primary_email, ue.email AS extra_email
+FROM users u
+LEFT JOIN user_emails ue ON u.id = ue.user_id;
+
+-- See users with their phones
+SELECT u.name, up.phone, up.type
+FROM users u
+LEFT JOIN user_phones up ON u.id = up.user_id;
+
+
+DESCRIBE users;
+
+
+USE campus_placement;
+
+SELECT 
+  u.id,
+  u.name,
+  u.email AS primary_email,
+  u.role,
+  u.created_at,
+  GROUP_CONCAT(DISTINCT ue.email) AS extra_emails,
+  GROUP_CONCAT(DISTINCT up.phone, ' (', up.type, ')') AS phones
+  
+FROM users u
+LEFT JOIN user_emails ue ON u.id = ue.user_id
+LEFT JOIN user_phones up ON u.id = up.user_id
+GROUP BY u.id;
+
+SELECT * FROM user_emails;
+SELECT * FROM user_phones;
+
+SELECT id, name, email AS primary_email, role, created_at
+FROM users;
+
+

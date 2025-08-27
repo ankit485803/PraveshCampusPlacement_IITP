@@ -42,7 +42,7 @@ This project was developed as a small full-stack application to automate the stu
   - **frontend/src/**
     - pages/ → Login, Register, Dashboards  
     - components/ → Navbar, PrivateRoute  
-    - api/axiosConfig.js  
+    - api/axios: Config.js  
     - App.js  
     - index.js  
     

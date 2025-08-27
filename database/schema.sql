@@ -34,6 +34,6 @@ CREATE TABLE applications (
   FOREIGN KEY (job_id) REFERENCES jobs(id)
 );
 
-
+-- USE campus_placement;
 -- SHOW TABLES;
 
