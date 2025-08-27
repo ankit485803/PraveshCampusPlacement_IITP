@@ -1,0 +1,8 @@
+
+
+
+Add field validations?
+
+Store JWT on login?
+
+Redirect after registration?
