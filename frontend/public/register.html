@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Register User</title>
+</head>
+<body>
+  <h2>Register</h2>
+  <form id="registerForm" method="POST" action="http://localhost:5000/api/auth/register">
+    <label>Name: <input type="text" name="name" required /></label><br />
+    <label>Email: <input type="email" name="email" required /></label><br />
+    <label>Password: <input type="password" name="password" required /></label><br />
+    <label>Role:
+      <select name="role" required>
+        <option value="">Select role</option>
+        <option value="student">Student</option>
+        <option value="recruiter">Recruiter</option>
+        <option value="officer">Officer</option>
+      </select>
+    </label><br />
+    <button type="submit">Register</button>
+  </form>
+</body>
+</html>

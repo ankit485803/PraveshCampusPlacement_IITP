@@ -8,8 +8,8 @@ const router = express.Router();
 const printAllExistingUsers = require("./printAllExistingUsers");
 
 
-
-
+// Register route with form parsing middleware
+const registerFormParser = require("../middleware/registerForm");
 
 
 // REGISTER

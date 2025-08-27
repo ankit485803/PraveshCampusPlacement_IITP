@@ -36,4 +36,6 @@ CREATE TABLE applications (
 
 -- USE campus_placement;
 -- SHOW TABLES;
+-- USE campus_placement;
+-- SELECT * FROM users ORDER BY id DESC;
 

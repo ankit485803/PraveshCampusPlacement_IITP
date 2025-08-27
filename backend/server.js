@@ -7,18 +7,32 @@ const mysql = require("mysql2");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const authRoutes = require("./routes/authRoutes");
+const path = require("path");
 
 require("dotenv").config();
 const db = require("./config/db"); // MySQL connection file (db.js)
-
 const app = express();
+
+
+
+// For JSON bodies (API requests)
+app.use(express.json());
+
+// For URL encoded form submissions (HTML forms)
+app.use(express.urlencoded({ extended: true }));
+
+// Serve frontend static files if needed
+app.use(express.static(path.join(__dirname, "../frontend/public")));
+
+
+
+
 
 
 app.use(cors());
 // Middlewares
 app.use(express.json());
 app.use("/api/auth", authRoutes); // all auth routes prefixed with /api/auth
-
 
 
 

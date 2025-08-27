@@ -17,11 +17,25 @@ const db = mysql.createConnection({
 
 
 
-// Test DB
-db.connect(err => {
+
+// FLAG  DB connected or not
+db.connect((err) => {
   if (err) throw err;
   console.log("✅ MySQL Connected...");
+  db.query("SELECT DATABASE()", (err, result) => {
+    if (err) throw err;
+    console.log("🔍 Connected to database:", result[0]['DATABASE()']);
+  });
 });
+
+
+
+
+// // Test DB
+// db.connect(err => {
+//   if (err) throw err;
+//   console.log("✅ MySQL Connected...");
+// });
 
 
 
